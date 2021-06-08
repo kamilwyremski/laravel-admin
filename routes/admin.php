@@ -10,8 +10,8 @@ use App\Models\User;
 Route::get('/admin', [HomeController::class, 'index'])
   ->middleware(['auth'])
   ->name('admin');
-
-  Route::get('/admin/static-pages', [StaticPageController::class, 'list'])
+ 
+Route::get('/admin/static-pages', [StaticPageController::class, 'list'])
   ->middleware(['auth'])
   ->name('admin_static_page_list');
 
