@@ -23,4 +23,6 @@ return [
     'Password' => 'Hasło',
     'Repeat password' => 'Powtórz hasło',
     'Active' => 'Aktywny',
+    'Roles' => 'Role',
+    'no' => 'nie',
 ];

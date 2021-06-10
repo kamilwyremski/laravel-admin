@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 
@@ -19,14 +20,22 @@ class UserController extends Controller
         return view('admin.user.list', compact('users'));
     }
 
-    public function create()
+    public function create(User $User = null)
     {
-        return view('admin.user.add');
-    }
-
-    public function edit(User $User)
-    {
-        return view('admin.user.add', ['user' => $User]);
+        $roles = [];
+        foreach(Role::all()->toArray() as $role){
+            $roles[] = [
+                'value' => $role['id'],
+                'name' => $role['name'],
+            ];
+        }
+        $user_roles = [];
+        if($User){
+            foreach($User->roles as $role){
+                $user_roles[] = $role->id;
+            }
+        }
+        return view('admin.user.add', ['user' => $User, 'roles' => $roles, 'user_roles' => $user_roles]);
     }
 
     public function store(Request $request, User $User = null)
@@ -42,6 +51,7 @@ class UserController extends Controller
             'name' => ['required'],
             'email' => ['email','required','unique:users,email,'.$User->id],
             'password' => $password,
+            'roles' => ['array']
         ]);
 
         $User->name = $request->name;
@@ -49,12 +59,26 @@ class UserController extends Controller
         if($request->password){
             $User->password = Hash::make($request->password);
         }
-
-        $user_role = Role::where('name','user')->first();
-
-        $User->roles()->attach($user_role);
+        if(Auth::user() != $User){
+            if($request->active){
+               if(!$User->email_verified_at){
+                $User->email_verified_at = now();
+               }
+            }else{
+                $User->email_verified_at = null;
+            }
+        }
 
         $User->save();
+
+        if($request->roles){
+            $User->roles()->detach();
+            foreach($request->roles as $role_id){
+                $role = Role::find($role_id);
+                $User->roles()->attach($role);
+            }
+            $User->save();
+        }
 
         return redirect()->route('admin_user_list')->with('flash_message', __('admin.Changes have been saved correctly'));
     }

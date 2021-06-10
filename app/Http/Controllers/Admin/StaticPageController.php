@@ -17,12 +17,7 @@ class StaticPageController extends Controller
         return view('admin.static_page.list', compact('static_pages'));
     }
 
-    public function create()
-    {
-        return view('admin.static_page.add');
-    }
-
-    public function edit(StaticPage $StaticPage)
+    public function create(StaticPage $StaticPage = null)
     {
         return view('admin.static_page.add', ['static_page' => $StaticPage]);
     }

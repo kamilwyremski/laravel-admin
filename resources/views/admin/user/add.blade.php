@@ -12,17 +12,21 @@
 
     <div class="p-10">
       <x-admin.form>
-          <x-admin.basic-errors />
+            <x-admin.basic-errors />
          
-           <x-inputs.basic-text name="name" label="{{ __('admin.Name') }}" value="{{ $user->name ?? old('name')}}" required autofocus />
+            <x-inputs.basic-text name="name" label="{{ __('admin.Name') }}" value="{{ $user->name ?? old('name')}}" required autofocus />
 
-           <x-inputs.basic-text name="email" type="email" label="{{ __('admin.Email') }}" value="{{ $user->email ?? old('email')}}" required />
+            <x-inputs.basic-text name="email" type="email" label="{{ __('admin.Email') }}" value="{{ $user->email ?? old('email')}}" required />
 
-           <x-inputs.basic-text name="password" type="password" label="{{ __('admin.Password') }}" value="{{old('password')}}" />
+            <x-inputs.basic-text name="password" type="password" label="{{ __('admin.Password') }}" value="{{old('password')}}" />
 
             <x-inputs.basic-text name="password_confirmation" type="password" label="{{ __('admin.Repeat password') }}" value="{{old('password_confirmation')}}" />
 
-            <x-inputs.basic-checkbox name="active" label="{{ __('admin.Active') }}" value="{{ $user->email_verified_at ?? old('active')}" />
+            @if(!Auth::user() or !$user or Auth::user()->id != $user->id)
+                <x-inputs.basic-checkbox name="active" label="{{ __('admin.Active') }}" :value="$user->email_verified_at ?? old('active')" />
+
+                <x-inputs.basic-multiple-select name="roles[]" label="{{ __('admin.Roles') }}" :values="$user_roles ?? old('roles')" :list="$roles" required/>
+            @endif
         
       </x-admin.form>
     </div>

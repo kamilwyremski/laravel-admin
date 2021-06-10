@@ -1,10 +1,9 @@
-<div class="col-span-6 sm:col-span-4">
+<div class="mb-2">
     <input id="{{ $name }}"
         name="{{ $name }}"
         class="form-checkbox rounded-md shadow-sm align-middle"
         type="checkbox"
-        checked="{{ $value }}"
-        autocomplete="{{ $name }}"
+        @if ($value ?? false) checked @endif
         {{-- @if ($autofocus) autofocus @endif --}}
         @if ($required ?? false) required @endif
     />

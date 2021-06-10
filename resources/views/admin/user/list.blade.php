@@ -11,12 +11,18 @@
     <div class="p-10">
 
         @if (count($users)>0)
-            <x-admin.table :titles="['','admin.Name','admin.Email','admin.Date','admin.Edit','admin.Remove']">
+            <x-admin.table :titles="['','admin.Name','admin.Email','admin.Roles','admin.Active','admin.Date','admin.Edit','admin.Remove']">
                 @foreach ($users as $user)
                     <tr class="border-b border-gray-100">
                         <td></td>
                         <td>{{ $user->name}}</td>
                         <td><a href="mailto:{{ $user->email }}">{{ $user->email}}</a></td>
+                        <td>
+                            @foreach ($user->roles as $role)
+                                {{ $role->name}}
+                            @endforeach
+                        </td>
+                        <td>@if($user->email_verified_at){{ $user->email_verified_at}}@else<span class="text-red-600">{{ __('Admin.no') }}</span>@endif</td>
                         <td>{{ $user->created_at}}</td>
                         <td>
                             <a href="{{ route('admin_user_edit', $user) }}">
