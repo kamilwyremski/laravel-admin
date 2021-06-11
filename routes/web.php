@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaticPageController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 use App\Models\StaticPage;
 
 /*
@@ -15,13 +18,12 @@ use App\Models\StaticPage;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])
+  ->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+  ->middleware(['auth'])
+  ->name('dashboard');
 
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -29,6 +31,9 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
 
 Route::get('/content/{StaticPage:slug}', [StaticPageController::class, 'show'])
   ->name('static_page_show');
+
+Route::get('/blog/{id}/{slug}', [BlogController::class, 'show'])
+  ->name('blog_show');
 
 require __DIR__.'/auth.php';
 

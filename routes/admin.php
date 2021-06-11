@@ -1,11 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\StaticPageController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Models\StaticPage;
 use App\Models\User;
+use App\Models\Blog;
 
 Route::group(['middleware' => 'role:admin'], function() {
 
@@ -28,6 +31,9 @@ Route::group(['middleware' => 'role:admin'], function() {
   Route::delete('/admin/static-pages/remove/{StaticPage}', [StaticPageController::class, 'remove'])
     ->name('admin_static_page_remove');
 
+  Route::post('/admin/static-pages/positions', [StaticPageController::class, 'positions'])
+    ->name('admin_static_page_positions');
+
   Route::get('/admin/users', [UserController::class, 'list'])
     ->name('admin_user_list');
 
@@ -43,5 +49,21 @@ Route::group(['middleware' => 'role:admin'], function() {
 
   Route::delete('/admin/users/remove/{User}', [UserController::class, 'remove'])
     ->name('admin_user_remove');
+
+  Route::get('/admin/blog', [BlogController::class, 'list'])
+    ->name('admin_blog_list');
+
+  Route::get('/admin/blog/add', [BlogController::class, 'create'])
+    ->name('admin_blog_add');
+
+  Route::get('/admin/blog/edit/{Blog}', [BlogController::class, 'create'])
+    ->name('admin_blog_edit');
+
+  Route::post('/admin/blog/add', [BlogController::class, 'store']);
+
+  Route::post('/admin/blog/edit/{Blog}', [BlogController::class, 'store']);
+
+  Route::delete('/admin/blog/remove/{Blog}', [BlogController::class, 'remove'])
+    ->name('admin_blog_remove');
 
 });

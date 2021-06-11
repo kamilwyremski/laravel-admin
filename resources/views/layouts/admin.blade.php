@@ -12,9 +12,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-
     <!-- Scripts -->
 
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
@@ -35,6 +32,9 @@
           </x-admin.nav-link>
           <x-admin.nav-link :href="route('admin_static_page_list')" :active="request()->routeIs('admin_static_page_list')">
               {{ __('admin.Static pages') }}
+          </x-admin.nav-link>
+          <x-admin.nav-link :href="route('admin_blog_list')" :active="request()->routeIs('admin_blog_list')">
+              {{ __('admin.Blog') }}
           </x-admin.nav-link>
           <x-admin.nav-link :href="route('admin_user_list')" :active="request()->routeIs('admin_user_list')">
               {{ __('admin.Users') }}

@@ -7,7 +7,7 @@
                 @endforeach
             </tr>
         </thead>
-        <tbody>
+        <tbody @if($sortable ?? false)id="sortable" @endif>
             {{$slot}}
         </tbody>
     </table>

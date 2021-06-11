@@ -25,4 +25,12 @@ return [
     'Active' => 'Aktywny',
     'Roles' => 'Role',
     'no' => 'nie',
+    'Blog' => 'Blog',
+    'Add new post' => 'Dodaj nowy wpis',
+    'Post name' => 'Tytuł wpisu',
+    'Thumb' => 'Miniaturka',
+    'Introduction' => 'Wprowadzenie',
+    'Description SEO' => 'Opis SEO',
+    'Keywords' => 'Słowa kluczowe',
+    'Position' => 'Pozycja'
 ];

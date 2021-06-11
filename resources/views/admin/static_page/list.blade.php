@@ -11,10 +11,13 @@
     <div class="p-10">
 
         @if (count($static_pages)>0)
-            <x-admin.table :titles="['','admin.Page name','admin.Date','admin.Edit','admin.Remove']">
+            <x-admin.table :titles="['admin.Position','admin.Page name','admin.Date','admin.Edit','admin.Remove']" sortable>
                 @foreach ($static_pages as $static_page)
-                    <tr class="border-b border-gray-100">
-                        <td></td>
+                    <tr class="border-b border-gray-100" data-sort="{{ $static_page->name }}">
+                        <td class="text-center">
+							<input type="hidden" name="ids[]" form="form_positions" value="{{ $static_page->id }}">
+							<i class="sortable-handle">{{ $loop->index + 1 }}</i>
+						</td>
                         <td class="text-left"><a href="{{route('static_page_show',$static_page)}}" target="_blank">{{ $static_page->name}}</a></td>
                         <td class="text-left">{{ $static_page->created_at}}</td>
                         <td class="text-center">
@@ -35,12 +38,16 @@
                 @endforeach
             </x-admin.table>
 
+            <div class="mt-4 flex space-x-4">
+                <x-button onclick="sortTable()">{{ __('Arrange it alphabetically') }}</x-button>
+
+                <form method="post" id="form_positions" action="{{ route('admin_static_page_positions') }}">
+                    @csrf
+                    <x-button type="submit">{{ __('Save positions') }}</x-button>
+                </form>
+            </div>
         @else
             <p class="text-red-600">{{ __('admin.Nothing found') }}</p>
         @endif
-    </div>
-
-    <div class="p-10">
-        {{ $static_pages->onEachSide(3)->links()}}
     </div>
 </x-admin-layout>

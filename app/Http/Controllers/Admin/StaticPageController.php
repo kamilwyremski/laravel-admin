@@ -10,9 +10,7 @@ class StaticPageController extends Controller
 {
     public function list()
     {
-
-        $static_pages = StaticPage::orderBy('position', 'asc')
-            ->Paginate(10);
+        $static_pages = StaticPage::orderBy('position', 'asc')->get();
 
         return view('admin.static_page.list', compact('static_pages'));
     }
@@ -45,6 +43,19 @@ class StaticPageController extends Controller
         $StaticPage->delete();
 
         return back()->with('flash_message', __('admin.Successfully deleted'));
+    }
+
+    public function positions(Request $request)
+    {
+        $position = 0;
+        foreach($request->ids as $id){
+            $static_page = StaticPage::where('id', $id)->firstOrFail();
+            $static_page->position = $position;
+            $static_page->save();
+            $position++;
+        }
+
+        return back()->with('flash_message', __('admin.Changes have been saved correctly'));
     }
 
 }

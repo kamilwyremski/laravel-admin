@@ -7,6 +7,9 @@
 
     <title>@yield('title', config('app.name'))</title>
 
+    <meta name="Keywords" content="@yield('keywords')">
+    <meta name="Description" content="@yield('description')">
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
