@@ -14,5 +14,8 @@ return [
   'Reset Password' => 'Reset hasła',
   'Log out' => 'Wyloguj',
   'Dashboard' => 'Pulpit',
-  'Admin Panel' => 'Panel administracyjny'
+  'Admin Panel' => 'Panel administracyjny',
+  'Settings' => 'Ustawienia',
+  'Old password' => 'Stare hasło',
+  'Save' => 'Zapisz'
 ];

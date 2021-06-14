@@ -11,13 +11,13 @@ class RoleMiddleware
     {
         if(!$request->user()->hasRole($role)) {
 
-             abort(404);
+             abort(403);
 
         }
 
         if($permission !== null && !$request->user()->can($permission)) {
 
-              abort(404);
+              abort(434);
         }
 
         return $next($request);

@@ -5,6 +5,7 @@ use App\Http\Controllers\StaticPageController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 use App\Models\StaticPage;
 
 /*
@@ -24,6 +25,13 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/dashboard', [DashboardController::class, 'index'])
   ->middleware(['auth'])
   ->name('dashboard');
+
+Route::get('/ustawienia', [SettingController::class, 'index'])
+  ->middleware(['auth'])
+  ->name('settings');
+
+Route::post('/ustawienia', [SettingController::class, 'store'])
+  ->middleware(['auth']);
 
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

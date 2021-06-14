@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('app.name'))</title>
+    <title>@yield('title', config('settings.title'))</title>
 
     <meta name="Keywords" content="@yield('keywords')">
     <meta name="Description" content="@yield('description')">
@@ -22,6 +22,7 @@
   <body class="font-sans antialiased">
 
     <div class="min-h-screen bg-gray-100">
+      @include('components.flash-message')
       @include('layouts.navigation')
             
       @if(isset($header))

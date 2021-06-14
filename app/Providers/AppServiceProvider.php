@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +22,17 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot() 
     {
-        //
+        config([
+            'settings' => Setting::all([
+                'name','value'
+            ])
+            ->keyBy('name')
+            ->transform(function ($setting) {
+                return $setting->value; 
+            })
+            ->toArray()
+        ]);
     }
 }

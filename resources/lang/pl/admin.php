@@ -32,5 +32,8 @@ return [
     'Introduction' => 'Wprowadzenie',
     'Description SEO' => 'Opis SEO',
     'Keywords' => 'Słowa kluczowe',
-    'Position' => 'Pozycja'
+    'Position' => 'Pozycja',
+    'Settings' => 'Ustawienia',
+    'Title SEO' => 'Tytuł SEO',
+    
 ];

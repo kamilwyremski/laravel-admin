@@ -39,6 +39,9 @@
           <x-admin.nav-link :href="route('admin_user_list')" :active="request()->routeIs('admin_user_list')">
               {{ __('admin.Users') }}
           </x-admin.nav-link>
+          <x-admin.nav-link :href="route('admin_settings')" :active="request()->routeIs('admin_settings')">
+              {{ __('admin.Settings') }}
+          </x-admin.nav-link>
         </nav>
         <div class="flex-1">
           @if(isset($header))

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\StaticPageController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Models\StaticPage;
 use App\Models\User;
 use App\Models\Blog;
@@ -65,5 +66,10 @@ Route::group(['middleware' => 'role:admin'], function() {
 
   Route::delete('/admin/blog/remove/{Blog}', [BlogController::class, 'remove'])
     ->name('admin_blog_remove');
+
+  Route::get('/admin/settings', [SettingController::class, 'index'])
+  ->name('admin_settings');
+
+  Route::post('/admin/settings', [SettingController::class, 'store']);
 
 });
